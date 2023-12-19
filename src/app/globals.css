@@ -25,3 +25,62 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.anim_rotate {
+  animation: rotate 3s infinite linear;
+}
+
+.anim_left-right {
+  animation: left-right 3s infinite linear;
+}
+
+.anim_scale-top-right {
+  animation: scale-top-right 2s infinite alternate;
+  transform-origin: top right;
+}
+
+.anim_sea-saw {
+  animation: sea-saw 2s infinite alternate;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes left-right {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-30deg);
+  }
+  75% {
+    transform: rotate(30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes scale-top-right {
+  0% {
+    transform: scale(0.75);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes sea-saw {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
