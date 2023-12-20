@@ -200,6 +200,12 @@ export default async function Home() {
           content={"https://www.vipinsharma.me"}
         />
         <meta property="og:image" content={"/images/me.webp"} />
+        <link
+          rel="icon"
+          href="/icon?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+        />
       </Head>
       <main className="max-w-5xl mx-auto w-full">
         <section className="px-4 flex flex-col gap-8 md:flex-row mt-12 md:mt-6">
