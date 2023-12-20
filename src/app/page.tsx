@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     "I'm Vipin Sharma, from Gurgaon, Haryana, India 🇮🇳. I am currently working as a web developer and freelancer (also looking for interesting job offers).",
   openGraph: {
     url: `${process.env.NEXT_PUBLIC_DOMAIN}`,
-    images: ["/images/me.webp"],
+    images: [`${process.env.NEXT_PUBLIC_DOMAIN}/images/me.webp`],
   },
 };
 
