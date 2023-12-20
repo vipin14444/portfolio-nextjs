@@ -16,3 +16,18 @@ const builder = imageUrlBuilder(client);
 export const urlFor = (source: any) => {
   return builder.image(source);
 };
+
+export const blocksToText = (blocks: any[], opts = {}) => {
+  const options = Object.assign({}, { nonTextBehavior: "remove" }, opts);
+  return blocks
+    .map((block) => {
+      if (block._type !== "block" || !block.children) {
+        return options.nonTextBehavior === "remove"
+          ? ""
+          : `[${block._type} block]`;
+      }
+
+      return block.children.map((child: any) => child.text).join("");
+    })
+    .join("\n\n");
+};

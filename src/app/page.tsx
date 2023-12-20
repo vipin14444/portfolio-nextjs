@@ -1,9 +1,8 @@
+import type { Metadata } from "next";
 import { ProjectLink, Skill, SocialLink } from "@/components";
 import { IProject, ISkill, ISocialLink } from "@/types";
 import { client } from "@/utils/sanity";
-import Head from "next/head";
 import Image from "next/image";
-import { Fragment } from "react";
 import {
   FaFacebookF,
   FaGithub,
@@ -37,6 +36,16 @@ async function getProjects(): Promise<IProject[]> {
   );
   return projects;
 }
+
+export const metadata: Metadata = {
+  title: "Vipin Sharma - Web Developer",
+  description:
+    "I'm Vipin Sharma, from Gurgaon, Haryana, India 🇮🇳. I am currently working as a web developer and freelancer (also looking for interesting job offers).",
+  openGraph: {
+    url: `${process.env.NEXT_PUBLIC_DOMAIN}`,
+    images: ["/images/me.webp"],
+  },
+};
 
 export default async function Home() {
   const socialLinks: ISocialLink[] = [
@@ -186,68 +195,46 @@ export default async function Home() {
   const projects = await getProjects();
 
   return (
-    <Fragment>
-      <Head>
-        <title>Vipin Sharma - Web Developer</title>
-        <meta
-          name="description"
-          content="I'm Vipin Sharma, from Gurgaon, Haryana, India 🇮🇳. I am currently working as a web developer and freelancer (also looking for interesting job offers)."
-        />
-        <meta />
-        <meta
-          name="og_url"
-          property="og:url"
-          content={"https://www.vipinsharma.me"}
-        />
-        <meta property="og:image" content={"/images/me.webp"} />
-        <link
-          rel="icon"
-          href="/icon?<generated>"
-          type="image/<generated>"
-          sizes="<generated>"
-        />
-      </Head>
-      <main className="max-w-5xl mx-auto w-full">
-        <section className="px-4 flex flex-col gap-8 md:flex-row mt-12 md:mt-6">
-          <div className="flex flex-col justify-center flex-1">
-            <h1 className="text-5xl font-semibold mb-4">{`Hey there!`}</h1>
-            <p>
-              {`I'm Vipin Sharma, from Gurgaon, Haryana, India 🇮🇳. I am currently working as a web developer and freelancer (also looking for interesting job offers).`}
-            </p>
+    <main className="max-w-5xl mx-auto w-full">
+      <section className="px-4 flex flex-col gap-8 md:flex-row mt-12 md:mt-6">
+        <div className="flex flex-col justify-center flex-1">
+          <h1 className="text-5xl font-semibold mb-4">{`Hey there!`}</h1>
+          <p>
+            {`I'm Vipin Sharma, from Gurgaon, Haryana, India 🇮🇳. I am currently working as a web developer and freelancer (also looking for interesting job offers).`}
+          </p>
 
-            <div className="flex flex-wrap md:flex-col mt-8 gap-4">
-              {socialLinks.map((item) => (
-                <SocialLink socialLink={item} key={item.title} />
-              ))}
-            </div>
-          </div>
-          <div className="rounded-3xl overflow-clip shrink-0 aspect-[1/1.28375] relative flex-1">
-            <Image src={"/images/me.webp"} alt="me" layout="fill" />
-          </div>
-        </section>
-
-        <div id="skills" className="mb-32" />
-
-        <section className="px-4">
-          <h2 className="text-5xl font-semibold mb-6">{`Skills`}</h2>
-          <div className="flex flex-wrap gap-x-12">
-            {skills.map((item) => (
-              <Skill skill={item} key={item.title} />
+          <div className="flex flex-wrap md:flex-col mt-8 gap-4">
+            {socialLinks.map((item) => (
+              <SocialLink socialLink={item} key={item.title} />
             ))}
           </div>
-        </section>
+        </div>
+        <div className="rounded-3xl overflow-clip shrink-0 aspect-[1/1.28375] relative flex-1">
+          <Image src={"/images/me.webp"} alt="me" layout="fill" />
+        </div>
+      </section>
 
-        <div id="work" className="mb-32" />
+      <div id="skills" className="mb-32" />
 
-        <section id="work" className="px-4 mb-16 md:mb-32">
-          <h2 className="text-5xl font-semibold mb-6">{`It ain't much, but it's honest work`}</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((item) => (
-              <ProjectLink project={item} key={item._id} />
-            ))}
-          </div>
-        </section>
-      </main>
-    </Fragment>
+      <section className="px-4">
+        <h2 className="text-5xl font-semibold mb-6">{`Skills`}</h2>
+        <div className="flex flex-wrap gap-x-12">
+          {skills.map((item) => (
+            <Skill skill={item} key={item.title} />
+          ))}
+        </div>
+      </section>
+
+      <div id="work" className="mb-32" />
+
+      <section id="work" className="px-4 mb-16 md:mb-32">
+        <h2 className="text-5xl font-semibold mb-6">{`It ain't much, but it's honest work`}</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((item) => (
+            <ProjectLink project={item} key={item._id} />
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }

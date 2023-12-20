@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { IProject } from "@/types";
-import { client, urlFor } from "@/utils/sanity";
+import { blocksToText, client, urlFor } from "@/utils/sanity";
 import { PortableText } from "@portabletext/react";
 import Head from "next/head";
 import Image from "next/image";
 import { Fragment } from "react";
+import type { Metadata, ResolvingMetadata } from "next";
 
 async function getProject(id: string): Promise<IProject | undefined | null> {
   const projects = await client.fetch<IProject[]>(
@@ -18,6 +19,22 @@ async function getProject(id: string): Promise<IProject | undefined | null> {
   return null;
 }
 
+export async function generateMetadata(
+  { params }: { params: { slug: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const project = await getProject(params.slug);
+
+  return {
+    title: project?.name,
+    description: blocksToText(project?.description),
+    openGraph: {
+      url: `${process.env.NEXT_PUBLIC_DOMAIN}/project/${project?.slug}`,
+      images: [urlFor(project?.cover).url()],
+    },
+  };
+}
+
 export default async function Page({ params }: { params: { slug: string } }) {
   console.log(params.slug);
   const project = await getProject(params.slug);
@@ -25,23 +42,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <Fragment>
-      <Head>
-        <title>{project?.name} | Vipin Sharma - Web Developer</title>
-        <meta name="description" content={project?.description} />
-        <meta />
-        <meta
-          name="og_url"
-          property="og:url"
-          content={`https://www.vipinsharma.me/project/${project?.slug}`}
-        />
-        <meta property="og:image" content={urlFor(project?.cover).url()} />
-        <link
-          rel="icon"
-          href="/icon?<generated>"
-          type="image/<generated>"
-          sizes="<generated>"
-        />
-      </Head>
       <main className="max-w-5xl mx-auto w-full flex flex-col items-center pb-16 pt-8">
         <section className="px-4 max-w-[672px] flex flex-col items-center w-full">
           <h1 className="text-5xl font-semibold mb-4 text-center">
