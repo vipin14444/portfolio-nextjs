@@ -29,13 +29,7 @@ import {
   SiTailwindcss,
   SiTypescript,
 } from "react-icons/si";
-
-async function getProjects(): Promise<IProject[]> {
-  const projects = await client.fetch<IProject[]>(
-    `*[_type == "project"]{name, slug, _updatedAt, cover, displayNumber} | order(displayNumber)`
-  );
-  return projects;
-}
+import { ProjectService } from "@/services/ProjectService";
 
 export const metadata: Metadata = {
   title: "Vipin Sharma - Web Developer",
@@ -192,7 +186,7 @@ export default async function Home() {
     },
   ];
 
-  const projects = await getProjects();
+  const projects = await ProjectService.getProjects();
 
   return (
     <main className="max-w-5xl mx-auto w-full">
