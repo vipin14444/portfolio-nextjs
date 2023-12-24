@@ -8,4 +8,16 @@ export class ProjectService {
     );
     return projects;
   };
+
+  static getProject = async (slug: string) => {
+    const projects = await client.fetch<IProject[]>(
+      `*[_type == "project" && slug.current == '${slug}']`
+    );
+
+    if (projects && projects[0]) {
+      return projects[0];
+    }
+
+    return null;
+  };
 }
