@@ -2,7 +2,6 @@
 import { IProject } from "@/types";
 import { blocksToText, client, urlFor } from "@/utils/sanity";
 import { PortableText } from "@portabletext/react";
-import Head from "next/head";
 import Image from "next/image";
 import { Fragment } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
