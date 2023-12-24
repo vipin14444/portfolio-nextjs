@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ProjectLink, Skill, SocialLink } from "@/components";
 import { IProject, ISkill, ISocialLink } from "@/types";
 import { client } from "@/utils/sanity";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {
   FaFacebookF,
   FaGithub,
@@ -32,7 +32,7 @@ import {
 
 async function getProjects(): Promise<IProject[]> {
   const projects = await client.fetch<IProject[]>(
-    `*[_type == "project"] | order(_updatedAt)`
+    `*[_type == "project"]{name, slug, _updatedAt, cover, displayNumber} | order(displayNumber)`
   );
   return projects;
 }
@@ -209,7 +209,7 @@ export default async function Home() {
             ))}
           </div>
         </div>
-        <div className="rounded-3xl overflow-clip shrink-0 aspect-[1/1.28375] relative flex-1">
+        <div className="rounded-3xl overflow-clip shrink-0 aspect-[1/1.333333] relative flex-1">
           <Image src={"/images/me.webp"} alt="me" layout="fill" />
         </div>
       </section>

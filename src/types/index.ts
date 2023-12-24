@@ -27,6 +27,7 @@ export interface IProject {
   name?: string;
   role?: string;
   slug?: SanitySlugModel;
+  displayNumber?: number;
 }
 
 interface SanityImageModel {

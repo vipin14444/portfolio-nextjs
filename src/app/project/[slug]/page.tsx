@@ -2,7 +2,7 @@
 import { IProject } from "@/types";
 import { blocksToText, client, urlFor } from "@/utils/sanity";
 import { PortableText } from "@portabletext/react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { Fragment } from "react";
 import type { Metadata, ResolvingMetadata } from "next";
 
@@ -20,12 +20,12 @@ async function getProject(id: string): Promise<IProject | undefined | null> {
 
 export async function generateMetadata(
   { params }: { params: { slug: string } },
-  parent: ResolvingMetadata
+  _parent: ResolvingMetadata
 ): Promise<Metadata> {
   const project = await getProject(params.slug);
 
   return {
-    title: project?.name,
+    title: `${project?.name} | Vipin Sharma`,
     description: blocksToText(project?.description),
     openGraph: {
       url: `${process.env.NEXT_PUBLIC_DOMAIN}/project/${project?.slug}`,
@@ -35,9 +35,7 @@ export async function generateMetadata(
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  console.log(params.slug);
   const project = await getProject(params.slug);
-  console.log(project);
 
   return (
     <Fragment>
