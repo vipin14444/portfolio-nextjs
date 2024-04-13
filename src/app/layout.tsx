@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Footer, Header } from "@/components";
 import Head from "next/head";
+import clsx from "clsx";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,7 +25,7 @@ export default function RootLayout({
           sizes="<generated>"
         />
       </Head>
-      <body className={poppins.className}>
+      <body className={clsx(poppins.className, "bg-black text-white")}>
         <Header />
         {children}
         <Footer />
